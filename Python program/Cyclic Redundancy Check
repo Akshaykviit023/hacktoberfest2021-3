@@ -1,0 +1,38 @@
+def xor(a,b):
+    answer=[]
+    for i in range(1,len(b)):
+        if a[i]==b[i]:
+            answer.append('0')
+        else:
+            answer.append('1')
+    return ''.join(answer)
+
+def Mod(divident,divisor):
+    lendiv=len(divisor)
+    temp=divident[0:lendiv]
+    while lendiv<len(divident):
+ 
+        if temp[0]=='1':
+            temp=xor(divisor, temp)+divident[lendiv]
+ 
+        else:  
+            temp=xor('0'*lendiv, temp)+divident[lendiv]
+        lendiv+=1 
+    if temp[0]=='1':
+        temp=xor(divisor,temp)
+    else:
+        temp=xor('0'*lendiv,temp)
+    checkword=temp
+    return checkword
+ 
+def Encode(data,key):
+    lkey=len(key)
+    temp=data+'0'*(lkey-1)
+    remainder=Mod(temp, key)
+    codeword=data+remainder
+    print("Remainder: ",remainder)
+    print("Encoded Data: ",codeword)
+ 
+data=str(input("Enter codeword: "))
+key=str(input("Enter Key: "))
+Encode(data,key)
